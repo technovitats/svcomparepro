@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>COMPARE PRO</title>
+    <!-- Bootstrap -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+  </head>
+  <body>
+    <div class="container">
+      <!-- Page header -->
+      <div class="page-header well" style="margin-top: 0px !important; padding-top: 0px !important;">
+        <h2>COMPARE PRO</h2>
+        <form>
+          <div class="row">
+            <div class="col-md-10">
+              <div class="input-group">
+                <div class="input-group-addon"><i class="glyphicon glyphicon-search"></i></div>
+                <input type="text" class="form-control" id="searchString" name="searchString" placeholder="Enter Product Name">
+              </div>
+            </div>
+            <div class="col-md-2">
+              <button type="submit" class="btn btn-success btn-block"><i class="glyphicon glyphicon-search"></i>&nbsp;&nbsp;&nbsp;Search</button>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="row">
+        <div class="col-md-6">
+          <div class="panel panel-info">
+            <div class="panel-heading">
+              <h3 class="panel-title">Amazon</h3>
+            </div>
+            <div id="divAmazonResults" class="panel-body">
+              <div id="waitAmazon" style="text-align: center; display: none;">
+                <img src="img/ajax-loader.gif" border="0">
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="panel panel-warning">
+            <div class="panel-heading">
+              <h3 class="panel-title">Flipkart</h3>
+            </div>
+            <div id="divFlipResults" class="panel-body">
+              <div id="waitFlipkart" style="text-align: center; display: none;">
+                <img src="img/ajax-loader.gif" border="0">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="js/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="js/bootstrap.min.js"></script>
+    <script>
+      $(document).ready(function() {
+        $('form').on('submit', function(e) {
+          var srhTerm = $('#searchString').val();
+          if(srhTerm.length > 0) {
+            // Get Amazon results
+            $.ajax({
+              url: "amazon_scraper.php?search="+ srhTerm, 
+              success: function(result) {
+                $("#divAmazonResults").html(result);
+              },
+              beforeSend: function() { $('#waitAmazon').show(); $("#divAmazonResults").html("") },
+              complete: function() { $('#waitAmazon').hide(); }
+            });
+            // Get flipkart results
+            $.ajax({
+              url: "flipkart_search.php?search="+ srhTerm, 
+              success: function(result) {
+                $("#divFlipResults").html(result);
+              },
+              beforeSend: function() { $('#waitFlipkart').show(); $("#divFlipResults").html("") },
+              complete: function() { $('#waitFlipkart').hide(); }
+            });            
+          } else {
+            alert('Please enter search term');
+            $('searchString').focus();
+          }
+          e.preventDefault();
+        });
+      });
+    </script>
+  </body>
+</html>

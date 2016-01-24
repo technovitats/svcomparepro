@@ -1,0 +1,15 @@
+Name: Compare PRO
+                       Compare your products
+Task:  comparing the product into two top most e-commerce websites
+Technologies and languages used:
+                                                               html,php,xml,jsn,css
+                                                               & easyphp ,notepad++
+How to execute?
+First copy all the files to the local web and open browser and enter the local web address (we used Easyphp devserver 127.0.0.1) loading index.html files directly moves to the front end of the web site where the products can compared. Typing a product in search bar gives the results from Amazon and flipkart by clicking the buy now link it directly takes to the desired website.
+                             
+Result: Comparison of price in both amazon and flipkart and choosing the best one.
+Conclusion: Our website helps the user to compare the price in two popular e commerce websites,and select  the product which is listed at lowprice. 
+
+
+
+
